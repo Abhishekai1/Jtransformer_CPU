@@ -11,7 +11,14 @@ public class QuantizationUtils {
     private static final Logger logger = LoggerFactory.getLogger(QuantizationUtils.class);
 
     public static float calculateScale(float maxVal) {
-        // TODO
-        return 1.0f;
+        if (maxVal <= 0.0f) {
+            logger.warn("calculateScale called with non-positive maxVal={}", maxVal);
+            return 1.0f;
+        }
+
+        // symmetric int8 range [-127,127]
+        float scale = maxVal / 127.0f;
+        if (scale == 0.0f) scale = 1e-8f;
+        return scale;
     }
 }

@@ -17,7 +17,7 @@ public class VirtualThreadManager {
     }
 
     public void execute(Runnable task) {
-        Thread.ofVirtual().start(task);
+        new Thread(task).start();
         logger.debug("Virtual thread started");
     }
 }

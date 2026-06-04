@@ -21,8 +21,10 @@ public class Tensor {
         return data;
     }
 
-    // TODO: Implement tensor operations
     public Tensor add(Tensor other) {
+        if (other == null) {
+            throw new IllegalArgumentException("Other tensor must not be null");
+        }
         return new Tensor(this.data.add(other.getData()));
     }
 }

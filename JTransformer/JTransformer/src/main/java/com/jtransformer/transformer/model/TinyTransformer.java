@@ -15,17 +15,27 @@ public class TinyTransformer {
     private final ModelConfig config;
 
     public TinyTransformer(ModelConfig config) {
+        if (config == null) {
+            throw new IllegalArgumentException("ModelConfig must not be null");
+        }
         this.config = config;
-        this.encoder = new TransformerEncoder();
+        this.encoder = new TransformerEncoder(config.getLayers());
         logger.info("TinyTransformer initialized with dim={}, heads={}, layers={}",
                 config.getDim(), config.getHeads(), config.getLayers());
     }
 
     public Tensor forward(Tensor input) {
+        if (input == null) {
+            throw new IllegalArgumentException("Input tensor must not be null");
+        }
         return encoder.forward(input);
     }
 
     public void saveCheckpoint(String path) {
-        // TODO
+        ModelCheckpoint.save(this, path);
+    }
+
+    public ModelConfig getConfig() {
+        return config;
     }
 }

@@ -14,10 +14,13 @@ public class ParallelExecutor {
     private static final Logger logger = LoggerFactory.getLogger(ParallelExecutor.class);
 
     public void executeInParallel(Runnable... tasks) {
-        try (ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor()) {
+        ExecutorService executor = Executors.newFixedThreadPool(tasks.length);
+        try {
             for (Runnable task : tasks) {
                 executor.submit(task);
             }
+        } finally {
+            executor.shutdown();
         }
         logger.info("Parallel execution completed");
     }

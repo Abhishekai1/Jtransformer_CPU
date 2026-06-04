@@ -12,6 +12,9 @@ public class CharacterTokenizer implements Tokenizer {
 
     @Override
     public int[] encode(String text) {
+        if (text == null) {
+            throw new IllegalArgumentException("Text to encode must not be null");
+        }
         logger.debug("Encoding text of length {}", text.length());
         int[] tokens = new int[text.length()];
         for (int i = 0; i < text.length(); i++) {
@@ -22,8 +25,13 @@ public class CharacterTokenizer implements Tokenizer {
 
     @Override
     public String decode(int[] tokens) {
-        StringBuilder sb = new StringBuilder();
-        for (int t : tokens) sb.append((char) t);
+        if (tokens == null) {
+            throw new IllegalArgumentException("Token array must not be null");
+        }
+        StringBuilder sb = new StringBuilder(tokens.length);
+        for (int t : tokens) {
+            sb.append((char) t);
+        }
         return sb.toString();
     }
 }

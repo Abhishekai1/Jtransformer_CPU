@@ -1,11 +1,13 @@
 package com.jtransformer.dataset;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Base dataset loader.
  */
 public interface DatasetLoader {
+    /**
+     * Load a text dataset for training or evaluation.
+     *
+     * @return the loaded TextDataset
+     */
     TextDataset loadDataset();
 }

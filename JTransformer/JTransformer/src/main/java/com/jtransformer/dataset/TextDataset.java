@@ -1,14 +1,10 @@
 package com.jtransformer.dataset;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * In-memory text dataset.
  */
 public class TextDataset {
 
-    private static final Logger logger = LoggerFactory.getLogger(TextDataset.class);
     private final String text;
 
     public TextDataset(String text) {
@@ -17,5 +13,23 @@ public class TextDataset {
 
     public String getText() {
         return text;
+    }
+
+    /**
+     * Check if dataset is empty.
+     *
+     * @return true if text is null or empty
+     */
+    public boolean isEmpty() {
+        return text == null || text.isEmpty();
+    }
+
+    /**
+     * Get the size of the dataset (text length).
+     *
+     * @return text length
+     */
+    public int size() {
+        return text == null ? 0 : text.length();
     }
 }

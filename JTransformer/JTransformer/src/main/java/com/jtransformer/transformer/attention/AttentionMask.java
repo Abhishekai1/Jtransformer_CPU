@@ -13,10 +13,18 @@ public class AttentionMask {
     private final Tensor mask;
 
     public AttentionMask(Tensor mask) {
+        if (mask == null || mask.getData() == null) {
+            throw new IllegalArgumentException("Attention mask cannot be null");
+        }
         this.mask = mask;
+        logger.debug("AttentionMask created with shape {}", mask.getData().shape());
     }
 
     public Tensor getMask() {
         return mask;
+    }
+
+    public boolean isCausal() {
+        return mask.getData().rank() == 2;
     }
 }
